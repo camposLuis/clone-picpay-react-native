@@ -3,6 +3,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import Suggestions from '../../components/Suggestions';
+import Activities from '../../components/Activities';
 
 import {
   Wrapper,
@@ -33,6 +34,7 @@ export default function Home() {
         </Header>
 
         <Suggestions />
+        <Activities />
       </Container>
     </Wrapper>
   );
