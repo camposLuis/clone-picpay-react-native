@@ -3,6 +3,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import PayButton from './components/PayButton';
+
 import HomeScreen from './screens/Home';
 import WalletScreen from './screens/Wallet';
 import PayScreen from './screens/Pay';
@@ -18,10 +20,6 @@ const icons = {
     lib: AntDesign,
     name: 'creditcard',
   },
-  Pay: {
-    lib: AntDesign,
-    name: 'home',
-  },
   Notifications: {
     lib: Ionicons,
     name: 'ios-notifications-outline',
@@ -35,8 +33,17 @@ const icons = {
 export default function Navigation() {
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({color, size}) => {
+      screenOptions={({route, navigation}) => ({
+        tabBarIcon: ({color, size, focused}) => {
+          if (route.name === 'Pay') {
+            return (
+              <PayButton
+                onPress={() => navigation.navigate('Pay')}
+                focused={focused}
+              />
+            );
+          }
+
           const {lib: Icon, name} = icons[route.name];
           return <Icon name={name} size={size} color={color} />;
         },
@@ -46,6 +53,8 @@ export default function Navigation() {
           backgroundColor: '#131418',
           borderTopColor: 'rgba(255, 255, 255, 0.2)',
         },
+        activeTintColor: '#fff',
+        inactiveTintColor: '#92929c',
       }}>
       <Tab.Screen
         name="Home"
@@ -65,7 +74,7 @@ export default function Navigation() {
         name="Pay"
         component={PayScreen}
         options={{
-          title: 'Pagar',
+          title: '',
         }}
       />
       <Tab.Screen
